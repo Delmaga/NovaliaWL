@@ -82,10 +82,11 @@ async def init_db():
 
         await db.commit()
 
-        # ========== BDA (Assistance vocale) ==========
+        # ========== BDA ==========
         await db.execute("""
-            CREATE TABLE IF NOT EXISTS bda_counter (
+            CREATE TABLE IF NOT EXISTS bda_config (
                 guild_id TEXT PRIMARY KEY,
+                category_id TEXT,
                 next_number INTEGER DEFAULT 1
             )
         """)
