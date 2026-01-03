@@ -35,7 +35,7 @@ class BDACog(commands.Cog):
     async def get_or_create_bda_channel(self, guild: discord.Guild, category_id: str = None):
         # Vérifier si "Assistance" existe déjà
         for channel in guild.voice_channels:
-            if channel.name == "Assistance":
+            if channel.name == "📍࿓_Assistance":
                 return channel
 
         # Définir la catégorie
@@ -46,7 +46,7 @@ class BDACog(commands.Cog):
                 category = None
 
         # Créer le salon
-        return await guild.create_voice_channel("Assistance", category=category)
+        return await guild.create_voice_channel("📍࿓_Assistance", category=category)
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member: discord.Member, before, after):
@@ -56,7 +56,7 @@ class BDACog(commands.Cog):
         config = await self.get_bda_config(str(member.guild.id))
 
         # Si rejoint "Assistance"
-        if after.channel and after.channel.name == "Assistance":
+        if after.channel and after.channel.name == "📍࿓_Assistance":
             number = config["next_number"]
             await self.update_bda_config(str(member.guild.id), next_number=number + 1)
 
@@ -69,7 +69,7 @@ class BDACog(commands.Cog):
 
             # Créer le salon temporaire DANS LA CATÉGORIE
             temp_channel = await member.guild.create_voice_channel(
-                f"Assistance {number}",
+                f"📍࿓_Assistance {number}",
                 category=category
             )
             self.temp_channels.add(temp_channel.id)
@@ -91,12 +91,12 @@ class BDACog(commands.Cog):
                     except:
                         pass
 
-    @discord.app_commands.command(name="bda", description="Créer le salon racine 'Assistance'")
+    @discord.app_commands.command(name="bda", description="Créer le salon racine '📍࿓_Assistance'")
     @discord.app_commands.checks.has_permissions(administrator=True)
     async def bda(self, interaction: discord.Interaction):
         config = await self.get_bda_config(str(interaction.guild.id))
         channel = await self.get_or_create_bda_channel(interaction.guild, config["category_id"])
-        await interaction.response.send_message(f"`✅ Salon 'Assistance' prêt : {channel.mention}`", ephemeral=False)
+        await interaction.response.send_message(f"`✅ Salon '📍࿓_Assistance' prêt : {channel.mention}`", ephemeral=False)
 
     @discord.app_commands.command(name="bda_categorie", description="Définir la catégorie pour les salons BDA")
     @discord.app_commands.checks.has_permissions(administrator=True)
